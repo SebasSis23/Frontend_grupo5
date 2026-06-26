@@ -1,15 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Sidebar.css';
 
 function Sidebar() {
-  // Las 6 opciones del menú correspondientes a tus 6 tablas exactas
-  const menuOptions = [
-    "Oficinas",                  
-    "Unidades Administrativas",  
-    "Organismos Financiadores",  
-    "Objetos de Gasto",          
-    "Control de Contraseñas",    
-    "Gestión de Usuarios"        
+const menuOptions = [
+    { name: "Oficinas", path: "/oficina" },
+    { name: "Unidades Administrativas", path: "/unidades" },
+    { name: "Organismos Financiadores", path: "/organismos" },
+    { name: "Objetos de Gasto", path: "/gastos" },
+    { name: "Control de Contraseñas", path: "/contrasenas" },
+    { name: "Gestión de Usuarios", path: "/usuarios" }
   ];
 
   return (
@@ -17,9 +17,14 @@ function Sidebar() {
       <h3>MENU PRINCIPAL</h3>
       <div className="menu-buttons">
         {menuOptions.map((option, index) => (
-          <button key={index} className="menu-btn">
-            {option}
-          </button>
+          <Link 
+            key={index} 
+            to={option.path} 
+            className="menu-btn"
+            style={{ textDecoration: 'none', display: 'block' }}
+          >
+            {option.name}
+          </Link>
         ))}
       </div>
     </aside>

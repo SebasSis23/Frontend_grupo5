@@ -1,0 +1,123 @@
+.password-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.password-table-title {
+    background: #004687;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.password-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    font-size: 13px;
+}
+
+.password-table th {
+    background: #d9e8f5;
+    color: #003b6f;
+    border: 1px solid #9bb7d4;
+    padding: 8px;
+}
+
+.password-table td {
+    border: 1px solid #c7c7c7;
+    padding: 7px;
+}
+
+.password-table tbody tr:hover {
+    background: #eef6ff;
+    cursor: pointer;
+}
+
+.password-table tr.selected {
+    background: #b9d9ff;
+}
+
+.empty-row {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+.password-control-panel {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.password-btn {
+    background: #004687;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.password-btn:disabled {
+    background: #999;
+    cursor: not-allowed;
+}
+
+.password-btn-salir {
+    background: #b22222;
+}
+
+.password-form-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    max-width: 550px;
+}
+
+.password-form-container h1 {
+    font-size: 20px;
+    color: #004687;
+    border-bottom: 2px solid #004687;
+    padding-bottom: 5px;
+}
+
+.password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.password-form label {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.password-form input {
+    padding: 6px;
+    border: 1px solid #7f9db9;
+}
+
+.password-form-buttons {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+}
+
+.password-form-buttons button {
+    padding: 8px 16px;
+    border: none;
+    background: #004687;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.password-error {
+    color: red;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
