@@ -1,6 +1,6 @@
 import apiClient from './apiClient';
 
-const ORG_USER_ENDPOINT = import.meta.env.VITE_ORG_USER_ENDPOINT || '/org-users';
+const ORG_USER_ENDPOINT = import.meta.env.VITE_ORG_USER_ENDPOINT || '/api/orguser';
 
 const unwrapList = (response) => {
   const payload = response.data;
