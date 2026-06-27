@@ -42,3 +42,15 @@
   background: linear-gradient(to bottom, #bad5ff 0%, #6fa4ff 100%);
   border-color: #003380;
 }
+
+.menu-link {
+  box-sizing: border-box;
+  display: block;
+  text-decoration: none;
+}
+
+.menu-btn.active {
+  background: linear-gradient(to bottom, #6fa4ff 0%, #2f6dcc 100%);
+  border-color: #003380;
+  color: #ffffff;
+}

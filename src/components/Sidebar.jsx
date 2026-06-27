@@ -1,15 +1,15 @@
-import React from 'react';
+import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
 
 function Sidebar() {
-  // Las 6 opciones del menú correspondientes a tus 6 tablas exactas
   const menuOptions = [
-    "Oficinas",                  
-    "Unidades Administrativas",  
-    "Organismos Financiadores",  
-    "Objetos de Gasto",          
-    "Control de Contraseñas",    
-    "Gestión de Usuarios"        
+    { label: 'Inicio', path: '/' },
+    { label: 'Oficinas' },
+    { label: 'Unidades Administrativas' },
+    { label: 'Organismos Financiadores' },
+    { label: 'Objetos de Gasto' },
+    { label: 'Control de Contrasenas' },
+    { label: 'Gestion de Usuarios', path: '/org-user' },
   ];
 
   return (
@@ -17,9 +17,19 @@ function Sidebar() {
       <h3>MENU PRINCIPAL</h3>
       <div className="menu-buttons">
         {menuOptions.map((option, index) => (
-          <button key={index} className="menu-btn">
-            {option}
-          </button>
+          option.path ? (
+            <NavLink
+              key={option.label}
+              to={option.path}
+              className={({ isActive }) => `menu-btn menu-link${isActive ? ' active' : ''}`}
+            >
+              {option.label}
+            </NavLink>
+          ) : (
+            <button key={index} className="menu-btn" type="button">
+              {option.label}
+            </button>
+          )
         ))}
       </div>
     </aside>
