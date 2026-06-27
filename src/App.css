@@ -19,3 +19,18 @@ html, body, #root {
   flex: 1; /* Distribuye el espacio restante debajo del Header */
   overflow: hidden;
 }
+
+
+
+
+/* --- Nueva columna derecha para organizar el espacio de trabajo --- */
+.app-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto; /* Permite scroll si el formulario o la tabla son muy largos */
+}
+
+.app-main-content {
+  flex: 1;
+}
