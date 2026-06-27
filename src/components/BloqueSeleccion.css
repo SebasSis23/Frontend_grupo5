@@ -1,0 +1,51 @@
+.vsiaf-selection-container {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  padding: 10px 0 15px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.selection-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.selection-title {
+  font-weight: bold;
+  color: #2d6ca2;
+}
+
+.selection-entidad-id {
+  color: #2d6ca2;
+  text-decoration: underline;
+  padding-left: 15px;
+}
+
+.selection-entidad-text {
+  color: #2d6ca2;
+  padding-left: 25px;
+}
+
+/* El recuadro blanco clásico para el ID de la unidad */
+.selection-unidad-box {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #7f9db9;
+  background-color: #ffffff;
+  padding: 2px 6px;
+  margin-left: 23px;
+  min-width: 40px;
+  justify-content: center;
+  font-weight: bold;
+  color: #000000;
+}
+
+.selection-unidad-text {
+  color: #2d6ca2;
+  font-weight: bold;
+  padding-left: 20px;
+  text-transform: uppercase;
+}
