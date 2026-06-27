@@ -1,4 +1,3 @@
-import React from 'react';
 import './Home.css';
 // Apuntamos al nuevo nombre y extensión de tu imagen
 import imagenFondo from '../assets/logo.jpeg'; 
