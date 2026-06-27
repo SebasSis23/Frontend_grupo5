@@ -1,4 +1,4 @@
-function UserTable({ users, onEdit, onDelete, onView }) {
+function UserTable({ users, loading, onEdit, onDelete, onView }) {
   return (
     <div className="org-user-table-wrap">
       <table className="org-user-table">
@@ -14,7 +14,15 @@ function UserTable({ users, onEdit, onDelete, onView }) {
           </tr>
         </thead>
         <tbody>
-          {users.length === 0 && (
+          {loading && (
+            <tr>
+              <td className="org-user-empty" colSpan="7">
+                Cargando usuarios...
+              </td>
+            </tr>
+          )}
+
+          {!loading && users.length === 0 && (
             <tr>
               <td className="org-user-empty" colSpan="7">
                 No se encontraron usuarios.
@@ -22,7 +30,7 @@ function UserTable({ users, onEdit, onDelete, onView }) {
             </tr>
           )}
 
-          {users.map((user) => (
+          {!loading && users.map((user) => (
             <tr key={user.id}>
               <td>{user.type}</td>
               <td>{user.id}</td>

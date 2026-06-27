@@ -1,4 +1,4 @@
-function UserForm({ formData, mode, onCancel, onChange, onSubmit }) {
+function UserForm({ formData, mode, saving, onCancel, onChange, onSubmit }) {
   const isReadonly = mode === 'view';
   const title = mode === 'edit' ? 'Editar Usuario' : mode === 'view' ? 'Detalle Usuario' : 'Nuevo Usuario';
 
@@ -97,8 +97,8 @@ function UserForm({ formData, mode, onCancel, onChange, onSubmit }) {
           {isReadonly ? 'Cerrar' : 'Cancelar'}
         </button>
         {!isReadonly && (
-          <button className="org-user-primary-btn" type="submit">
-            Guardar
+          <button className="org-user-primary-btn" type="submit" disabled={saving}>
+            {saving ? 'Guardando...' : 'Guardar'}
           </button>
         )}
       </div>

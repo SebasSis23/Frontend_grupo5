@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { orgUserService } from '../../services/orgUserService';
 import Pagination from './components/Pagination';
 import SearchBar from './components/SearchBar';
 import UserForm from './components/UserForm';
@@ -17,70 +18,16 @@ const emptyOrgUser = {
   updated: new Date().toISOString().slice(0, 10),
 };
 
-const initialUsers = [
-  {
-    type: 'ADMIN',
-    id: 'USR001',
-    name: 'Juan Perez',
-    readonly: true,
-    ckval: 100,
-    data: 'Usuario administrador con acceso de solo lectura.',
-    updated: '2026-06-27',
-  },
-  {
-    type: 'OPERADOR',
-    id: 'USR002',
-    name: 'Maria Lopez',
-    readonly: false,
-    ckval: 225,
-    data: 'Operador asignado a la unidad de activos fijos.',
-    updated: '2026-06-20',
-  },
-  {
-    type: 'CONSULTA',
-    id: 'USR003',
-    name: 'Carlos Rojas',
-    readonly: true,
-    ckval: 58,
-    data: 'Perfil de consulta para reportes institucionales.',
-    updated: '2026-06-18',
-  },
-  {
-    type: 'TECNICO',
-    id: 'USR004',
-    name: 'Ana Vargas',
-    readonly: false,
-    ckval: 310,
-    data: 'Usuario tecnico para mantenimiento de catalogos.',
-    updated: '2026-06-15',
-  },
-  {
-    type: 'AUDITOR',
-    id: 'USR005',
-    name: 'Luis Salazar',
-    readonly: true,
-    ckval: 44,
-    data: 'Acceso de auditoria sobre registros historicos.',
-    updated: '2026-06-10',
-  },
-  {
-    type: 'AUXILIAR',
-    id: 'USR006',
-    name: 'Sofia Mendez',
-    readonly: false,
-    ckval: 91,
-    data: 'Apoyo operativo para registro y verificacion.',
-    updated: '2026-06-05',
-  },
-];
-
 function OrgUser() {
-  const [users, setUsers] = useState(initialUsers);
+  const [users, setUsers] = useState([]);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [formMode, setFormMode] = useState(null);
   const [formData, setFormData] = useState(emptyOrgUser);
   const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   const filteredUsers = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -98,22 +45,45 @@ function OrgUser() {
   const currentPage = Math.min(page, pageCount);
   const paginatedUsers = filteredUsers.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
+  const loadUsers = useCallback(async () => {
+    setLoading(true);
+    setError('');
+
+    try {
+      const data = await orgUserService.getAll();
+      setUsers(data);
+    } catch {
+      setError('No se pudo cargar OrgUser desde el backend.');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(loadUsers, 0);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [loadUsers]);
+
   const openNewForm = () => {
     setFormMode('create');
     setFormData(emptyOrgUser);
     setMessage('');
+    setError('');
   };
 
   const openEditForm = (user) => {
     setFormMode('edit');
     setFormData(user);
     setMessage('');
+    setError('');
   };
 
   const openDetail = (user) => {
     setFormMode('view');
     setFormData(user);
     setMessage('');
+    setError('');
   };
 
   const closeForm = () => {
@@ -126,8 +96,10 @@ function OrgUser() {
     setPage(1);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setSaving(true);
+    setError('');
 
     const normalizedUser = {
       ...formData,
@@ -137,28 +109,40 @@ function OrgUser() {
       ckval: Number(formData.ckval || 0),
     };
 
-    if (formMode === 'edit') {
-      setUsers((currentUsers) => currentUsers.map((user) => (
-        user.id === normalizedUser.id ? normalizedUser : user
-      )));
-      setMessage('Registro OrgUser actualizado correctamente.');
-    } else {
-      setUsers((currentUsers) => [normalizedUser, ...currentUsers]);
-      setMessage('Registro OrgUser creado correctamente.');
-    }
+    try {
+      if (formMode === 'edit') {
+        await orgUserService.update(normalizedUser.id, normalizedUser);
+        setMessage('Registro OrgUser actualizado correctamente.');
+      } else {
+        await orgUserService.create(normalizedUser);
+        setMessage('Registro OrgUser creado correctamente.');
+      }
 
-    closeForm();
-    setPage(1);
+      closeForm();
+      setPage(1);
+      await loadUsers();
+    } catch {
+      setError('No se pudo guardar el registro OrgUser.');
+    } finally {
+      setSaving(false);
+    }
   };
 
-  const handleDelete = (userToDelete) => {
+  const handleDelete = async (userToDelete) => {
     const confirmed = window.confirm(`Eliminar el registro ${userToDelete.id}?`);
 
     if (!confirmed) return;
 
-    setUsers((currentUsers) => currentUsers.filter((user) => user.id !== userToDelete.id));
-    setMessage('Registro OrgUser eliminado correctamente.');
-    setPage(1);
+    setError('');
+
+    try {
+      await orgUserService.remove(userToDelete.id);
+      setMessage('Registro OrgUser eliminado correctamente.');
+      setPage(1);
+      await loadUsers();
+    } catch {
+      setError('No se pudo eliminar el registro OrgUser.');
+    }
   };
 
   return (
@@ -177,11 +161,13 @@ function OrgUser() {
       </section>
 
       {message && <div className="org-user-alert success">{message}</div>}
+      {error && <div className="org-user-alert error">{error}</div>}
 
       {formMode && (
         <UserForm
           formData={formData}
           mode={formMode}
+          saving={saving}
           onCancel={closeForm}
           onChange={setFormData}
           onSubmit={handleSubmit}
@@ -190,6 +176,7 @@ function OrgUser() {
 
       <section className="org-user-table-panel">
         <UserTable
+          loading={loading}
           users={paginatedUsers}
           onDelete={handleDelete}
           onEdit={openEditForm}
