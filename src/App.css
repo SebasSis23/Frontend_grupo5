@@ -1,21 +1,20 @@
-/* Limpieza total de los márgenes nativos del navegador */
 html, body, #root {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
-  background-color: #f3f4f6;
-}
-
-.app-viewport {
-  display: flex;
-  flex-direction: column;
-  height: 100vh; /* Fuerza al sistema a ocupar exactamente el alto del monitor */
   overflow: hidden;
 }
 
 .app-body {
   display: flex;
-  flex: 1; /* Distribuye el espacio restante debajo del Header */
+  flex-direction: row;
+  height: calc(100vh - 60px);
   overflow: hidden;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #fff;
 }

@@ -1,0 +1,193 @@
+/* ===== CONTAINER PRINCIPAL ===== */
+.oficina-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #fff;
+    flex: 1;
+    min-width: 0;
+}
+
+/* ===== TÍTULO ===== */
+.oficina-table-title {
+    background-color: #1a6fc4;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    padding: 8px;
+    letter-spacing: 1px;
+}
+
+/* ===== SCROLL WRAPPER ===== */
+.table-scroll-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+/* ===== TABLA ===== */
+.table-wrapper {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.table-wrapper thead tr {
+    background-color: #1a6fc4;
+    color: white;
+}
+
+.table-wrapper th {
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: bold;
+    border-right: 1px solid #4a90d9;
+    white-space: nowrap;
+}
+
+.table-wrapper td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #e0e0e0;
+    border-right: 1px solid #e8e8e8;
+}
+
+.table-wrapper tbody tr:hover {
+    background-color: #e8f0fb;
+    cursor: pointer;
+}
+
+.table-wrapper tbody tr.selected {
+    background-color: #b8d0f0 !important;
+}
+
+.table-wrapper tbody tr:nth-child(even) {
+    background-color: #f5f8ff;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 30px 20px;
+    color: #666;
+    font-style: italic;
+    background-color: #fffff0;
+}
+
+/* ===== PANEL DE BOTONES ===== */
+.control-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 6px;
+    padding: 8px 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-top: none;
+    flex-wrap: wrap;
+}
+
+/* ===== BOTONES ===== */
+.nav-btns,
+.nav-btns-link {
+    display: inline-block;
+    padding: 5px 14px;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    background-color: #e8e8e8;
+    color: #000;
+    border: 1px solid #adadad;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 2px;
+    line-height: 1.6;
+}
+
+.nav-btns:hover:not(:disabled),
+.nav-btns-link:hover {
+    background-color: #d0d8e8;
+    border-color: #5a7fbf;
+}
+
+.nav-btns:disabled {
+    color: #a1a1a1;
+    cursor: not-allowed;
+    background-color: #f0f0f0;
+}
+
+.nav-btns-link.disabled {
+    color: #a1a1a1;
+    pointer-events: none;
+}
+
+.btn-eliminar:not(:disabled) {
+    background-color: #fde8e8;
+    color: #c00;
+    border-color: #e0a0a0;
+}
+
+.btn-eliminar:hover:not(:disabled) {
+    background-color: #f5c0c0;
+}
+
+.btn-salir {
+    background-color: #1a6fc4;
+    color: white !important;
+    border-color: #1055a0;
+}
+
+.btn-salir:hover {
+    background-color: #155ba0;
+}
+
+/* ===== FORMULARIO (create.jsx) ===== */
+.form-error {
+    background: #ffe0e0;
+    color: #c00;
+    padding: 8px 12px;
+    margin: 10px;
+    border: 1px solid #f5a0a0;
+    font-size: 13px;
+}
+
+.form-grid {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 600px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.form-row label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-input {
+    padding: 6px 8px;
+    border: 1px solid #7f9db9;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    outline: none;
+}
+
+.form-input:focus {
+    border-color: #1a6fc4;
+    box-shadow: 0 0 0 2px rgba(26, 111, 196, 0.15);
+}
+
+textarea.form-input {
+    resize: vertical;
+}
